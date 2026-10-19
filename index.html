@@ -213,7 +213,7 @@ IC[8]=["Chrome","#fff",`<path fill="#ea4335" d="M12 12L4.206 7.5A9 9 0 0 1 19.79
 function tick(){const d=new Date();$("clk").textContent=`${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,"0")}`;$("lt").textContent=$("clk").textContent;$("ld").textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DAYS[d.getDay()]}요일`}
 tick();setInterval(tick,20000);
 $("lock").onclick=()=>{if(edit)return;$("lock").classList.add("up");$("hb").classList.add("w")};
-function show(h,tb="",o={}){const b=$("bd"),c=o.bg||"#fff";$("hd").innerHTML=o.h||"";$("hd").style.background=o.hbg||"#f6f6f6";b.innerHTML=h;b.className=edit?"ed":"";b.style.background=c;$("app").style.background=c;$("tb").innerHTML=tb;$("sb").classList.toggle("d",!o.l);$("hb").classList.toggle("w",!!o.l)}
+function show(h,tb="",o={}){$("app").querySelectorAll(".big").forEach(x=>x.remove());const b=$("bd"),c=o.bg||"#fff";$("hd").innerHTML=o.h||"";$("hd").style.background=o.hbg||"#f6f6f6";b.innerHTML=h;b.className=edit?"ed":"";b.style.background=c;$("app").style.background=c;$("tb").innerHTML=tb;$("sb").classList.toggle("d",!o.l);$("hb").classList.toggle("w",!!o.l)}
 const go=(f,b)=>{V=f;f();$("bd").scrollTop=b?1e5:0},rf=()=>{rnl();if(!V||cur===null)return;const t=$("bd").scrollTop;V();$("bd").scrollTop=t},bk=()=>go(Vs[cur]);
 function openApp(i){cur=i;$("app").classList.add("on");go(Vs[i])}
 $("hb").onclick=()=>{if(cur!==null){$("app").classList.remove("on");cur=null;$("sb").classList.remove("d");$("hb").classList.add("w")}else{$("lock").classList.remove("up")}};
@@ -380,8 +380,8 @@ function kpd2(d){if(lpf){lpf=false;return}kpd(d)}
 function scrN(i,s){const n=DB.calls[i].n;let k=ctl().findIndex(x=>x.n==n);if(k<0){DB.ct.push({n,ok:"1"});save();k=DB.ct.length-1}go(()=>scr(k,s))}
 /* 수신 전화 */
 function jr(k,x){return Array.isArray(x)?x.filter(y=>!(y&&y.tmp)):x}
-const INC0=()=>({on:"1",sec:"20",n:"엄마",lt:"여보세요? 주한아 어디니?\n나:엄마 저 연습실이에요\n밥은 먹었어?\n나:네 먹었어요 걱정 마세요",af:"통화 고마워 우리 아들 ❤️",td:"바쁜가봐 ㅎㅎ 밥 꼭 챙겨 먹어"});
-const incc=()=>(DB.inc=DB.inc||INC0());
+const INC0=()=>({on:"1",sec:"60",n:"엄마",lt:"여보세요? 주한아 어디니?\n나:엄마 저 연습실이에요\n밥은 먹었어?\n나:네 먹었어요 걱정 마세요",af:"통화 고마워 우리 아들 ❤️",td:"바쁜가봐 ㅎㅎ 밥 꼭 챙겨 먹어"});
+const incc=()=>{DB.inc=DB.inc||INC0();if(!DB.inc.m60){DB.inc.m60=1;DB.inc.sec="60"}return DB.inc};
 const incL=()=>incc().lt.split("\n").map(q=>q.trim()).filter(Boolean).map(q=>/^나\s*[:：]/.test(q)?{w:1,x:q.replace(/^나\s*[:：]\s*/,"")}:{w:0,x:q});
 let incT=0,inLive=false,au=null,rt=0;
 function incArm(){clearTimeout(incT);const c=incc();if(String(c.on)=="0")return;incT=setTimeout(incFire,Math.max(3,+c.sec||20)*1000)}
