@@ -215,8 +215,8 @@ tick();setInterval(tick,20000);
 $("lock").onclick=()=>{if(edit)return;$("lock").classList.add("up");$("hb").classList.add("w")};
 function show(h,tb="",o={}){$("app").querySelectorAll(".big").forEach(x=>x.remove());const b=$("bd"),c=o.bg||"#fff";$("hd").innerHTML=o.h||"";$("hd").style.background=o.hbg||"#f6f6f6";b.innerHTML=h;b.className=edit?"ed":"";b.style.background=c;$("app").style.background=c;$("tb").innerHTML=tb;$("sb").classList.toggle("d",!o.l);$("hb").classList.toggle("w",!!o.l)}
 const go=(f,b)=>{V=f;f();$("bd").scrollTop=b?1e5:0},rf=()=>{rnl();if(!V||cur===null)return;const t=$("bd").scrollTop;V();$("bd").scrollTop=t},bk=()=>go(Vs[cur]);
-function openApp(i){cur=i;$("app").classList.add("on");go(Vs[i])}
-$("hb").onclick=()=>{if(cur!==null){$("app").classList.remove("on");cur=null;$("sb").classList.remove("d");$("hb").classList.add("w")}else{$("lock").classList.remove("up")}};
+function openApp(i){cur=i;$("app").querySelectorAll(".big").forEach(x=>x.remove());$("app").classList.add("on");go(Vs[i])}
+$("hb").onclick=()=>{if(cur!==null){$("app").querySelectorAll(".big").forEach(x=>x.remove());$("app").classList.remove("on");cur=null;$("sb").classList.remove("d");$("hb").classList.add("w")}else{$("lock").classList.remove("up")}};
 /* 편집 도우미 */
 function modal(t,fs,v,ok,del){const M=$("mod");M.innerHTML=`<div class="box"><b>${t}</b>${fs.map((f,k)=>`<label>${f[1]}${f[3]?`<textarea id="f${k}" rows="6">${e(v[f[0]]??f[2])}</textarea>`:`<input id="f${k}" value="${e(v[f[0]]??f[2])}">`}</label>`).join("")}<div class="bt">${del?'<a id="md" class="r">삭제</a>':""}<a id="mc">취소</a><a id="mo">확인</a></div></div>`;M.classList.add("on");
 $("mc").onclick=()=>M.classList.remove("on");$("mo").onclick=()=>{const o={};fs.forEach((f,k)=>o[f[0]]=$("f"+k).value);M.classList.remove("on");ok(o)};if(del)$("md").onclick=()=>{M.classList.remove("on");del()}}
